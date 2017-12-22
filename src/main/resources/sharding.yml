@@ -10,7 +10,7 @@
         actualTables: user${0..1}
         tableStrategy:
           shardingColumns: id
-          algorithmExpression: user${id.longValue() % 2}
+          algorithmExpression: user${(id.longValue() >> 22) %2 }
 
     bindingTables:
       - tableNames: user

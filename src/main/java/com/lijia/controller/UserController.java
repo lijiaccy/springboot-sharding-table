@@ -1,6 +1,7 @@
 package com.lijia.controller;
 
 import com.lijia.bean.User;
+import com.lijia.config.ShardingIDConfig;
 import com.lijia.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,8 @@ public class UserController {
     @RequestMapping("/create")
     @ResponseBody
     public Object create(User user){
+        ShardingIDConfig shardingIDConfig = new ShardingIDConfig();
+        user.setId(shardingIDConfig.generateKey().longValue());
         userService.create(user);
         return "success";
     }
