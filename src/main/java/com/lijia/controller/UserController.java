@@ -35,4 +35,22 @@ public class UserController {
     public User max(){
         return userService.getUserMax();
     }
+
+    @RequestMapping("/trance")
+    @ResponseBody
+    public String trance(){
+        userService.trance();
+        return "test";
+    }
+
+    @RequestMapping("/trance1")
+    @ResponseBody
+    public String trance1(){
+        try {
+            userService.trance1();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "test";
+    }
 }
