@@ -3,6 +3,8 @@ package com.lijia.controller;
 import com.lijia.bean.User;
 import com.lijia.config.ShardingIDConfig;
 import com.lijia.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,12 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private UserService userService;
 
     @RequestMapping("/{id}")
     @ResponseBody
-    public User getUser(@PathVariable("id") Integer id){
+    public User getUser(@PathVariable("id") Long id){
         return userService.getUser(id);
     }
 

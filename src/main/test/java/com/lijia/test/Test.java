@@ -14,8 +14,16 @@ public class Test {
     private UserService userService;
 
     @org.junit.Test
-    public void trance(){
-        userService.trance();
+    public void trance() throws Exception {
+        userService.trance1();
     }
+
+    @org.junit.Test
+    public void testa() throws Exception {
+        System.out.println(userService.getUser(1L).getId());
+        userService.deleteUser(1L);
+        System.out.println(userService.getUser(1L).getId());
+    }
+
 
 }

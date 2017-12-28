@@ -3,25 +3,44 @@ package com.lijia.service;
 import com.lijia.bean.User;
 import com.lijia.config.ShardingIDConfig;
 import com.lijia.mapper.UserMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
+    //这里的单引号不能少，否则会报错，被识别是一个对象;
+    public static final String CACHE_KEY = "'user'";
+
+    public static final String USER_CACHE_NAME = "usercache";
 
     @Autowired
     private UserMapper userMapper;
 
-    public User getUser(Integer id) {
+
+    @Cacheable(value=USER_CACHE_NAME,key="'user_'+#id")
+    public User getUser(long id) {
+        logger.info("test");
+        System.out.println("没有走缓存");
         return  userMapper.getUser(id);
 
     }
 
     public void create(User user) {
         userMapper.create(user);
+    }
+
+    @CacheEvict(value = USER_CACHE_NAME,key="'user_'+#id")
+    public void deleteUser(long id){
+
     }
 
     public User getUserMax() {
@@ -47,8 +66,9 @@ public class UserService {
     }
 
 
-    @Transactional(propagation = Propagation.REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRED,timeout = 1,rollbackFor = Exception.class)
     public void trance1() throws Exception{
+        Thread.sleep(1200);
         User user = new User();
         ShardingIDConfig shardingIDConfig = new ShardingIDConfig();
         user.setId(shardingIDConfig.generateKey().longValue());
@@ -56,6 +76,7 @@ public class UserService {
         user.setSex(1);
         userMapper.create(user);
         System.out.println(user.getId());
-        throw new RuntimeException();
     }
+
+
 }

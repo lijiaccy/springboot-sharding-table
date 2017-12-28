@@ -1,2 +1,8 @@
 server:
   port: 8888
+
+spring:
+  cache:
+    type: ehcache
+    ehcache:
+      config: ehcache.xml
