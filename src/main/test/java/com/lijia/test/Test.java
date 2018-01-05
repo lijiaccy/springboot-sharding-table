@@ -25,5 +25,9 @@ public class Test {
         System.out.println(userService.getUser(1L).getId());
     }
 
+    @org.junit.Test
+    public void testRedis(){
+        userService.testRedis();
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.lijia.service;
 
 import com.lijia.bean.User;
+import com.lijia.config.RedisClient;
 import com.lijia.config.ShardingIDConfig;
 import com.lijia.mapper.UserMapper;
 import org.slf4j.Logger;
@@ -9,15 +10,24 @@ import org.springframework.aop.framework.AopContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import redis.clients.jedis.Transaction;
+
+import java.util.List;
 
 @Service
 public class UserService {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    //这里的单引号不能少，否则会报错，被识别是一个对象;
+    @Autowired
+    private RedisClient redisClient;
+
+    /**这里的单引号不能少，否则会报错，被识别是一个对象;
+     *
+     */
     public static final String CACHE_KEY = "'user'";
 
     public static final String USER_CACHE_NAME = "usercache";
@@ -28,8 +38,7 @@ public class UserService {
 
     @Cacheable(value=USER_CACHE_NAME,key="'user_'+#id")
     public User getUser(long id) {
-        logger.info("test");
-        System.out.println("没有走缓存");
+        logger.info("没有走缓存");
         return  userMapper.getUser(id);
 
     }
@@ -79,4 +88,8 @@ public class UserService {
     }
 
 
+    public void testRedis() {
+        redisClient.set("test","test");
+        System.out.println(redisClient.get("test"));
+    }
 }
