@@ -7,6 +7,8 @@ import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.data.redis.connection.RedisGeoCommands;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Transaction;
 
@@ -14,11 +16,21 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class RedisClient {  
+public class RedisClient {
 
-    @Autowired
     private RedisTemplate redisTemplate;
-      //set值
+
+    @Autowired(required = false)
+    public void setRedisTemplate(RedisTemplate redisTemplate) {
+        RedisSerializer stringSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(stringSerializer);
+        redisTemplate.setValueSerializer(stringSerializer);
+        redisTemplate.setHashKeySerializer(stringSerializer);
+        redisTemplate.setHashValueSerializer(stringSerializer);
+        this.redisTemplate = redisTemplate;
+    }
+
+    //set值
     public void set(String key, String value) {
         try {
             redisTemplate.opsForValue().set(key,value);
