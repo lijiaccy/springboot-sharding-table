@@ -1,10 +1,9 @@
 package com.lijia.mapper;
 
 import com.lijia.bean.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
+
+import java.sql.JDBCType;
 
 @Mapper
 public interface UserMapper {
@@ -17,4 +16,7 @@ public interface UserMapper {
 
     @Select("select * from user order by id desc limit 1")
     User getUserMax();
+
+    @Select("select logLevel from logs where logClass='123'")
+    String getOthers();
 }

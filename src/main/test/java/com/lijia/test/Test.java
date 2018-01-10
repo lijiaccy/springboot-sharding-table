@@ -19,6 +19,12 @@ public class Test {
     private UserService userService;
 
     @org.junit.Test
+    public void getUser(){
+//        System.out.println(userService.getUser(1L).getSex());
+        System.out.println(userService.getOthers());
+    }
+
+    @org.junit.Test
     public void trance() throws Exception {
         userService.trance1();
     }

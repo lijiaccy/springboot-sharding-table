@@ -15,7 +15,7 @@ import java.io.File;
 
 @Configuration
 public class ShardingConfig {
-    @Bean
+    @Bean(name = "shardingDataSource")
     public DataSource dataSource() throws Exception {
         Resource resource = new ClassPathResource("sharding.yml");
         File file = resource.getFile();

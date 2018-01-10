@@ -39,6 +39,10 @@ public class UserService {
 
     }
 
+    public String getOthers(){
+        return userMapper.getOthers();
+    }
+
     public void create(User user) {
         userMapper.create(user);
     }
