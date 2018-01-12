@@ -3,7 +3,7 @@ package com.lijia.controller;
 import com.lijia.bean.User;
 import com.lijia.check.LijiaCheck;
 import com.lijia.config.ShardingIDConfig;
-import com.lijia.service.UserService;
+import com.lijia.service.UserService1;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class UserController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private UserService userService;
+    private UserService1 userService;
 
     @RequestMapping("/{id}")
     @ResponseBody

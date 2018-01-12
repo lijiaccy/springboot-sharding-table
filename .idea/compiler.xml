@@ -4,8 +4,7 @@
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="oauth2" target="1.8" />
+    <bytecodeTargetLevel target="1.7">
       <module name="springboot-sharding-table" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -35,7 +35,7 @@ public class RequestLimitContract {
             }
             String ip = request.getLocalAddr();
             String url = request.getRequestURL().toString();
-            String key = "req_limit_".concat(url).concat(ip);
+            final String key = "req_limit_".concat(url).concat(ip);
             if(redisTemplate.get(key)==null || redisTemplate.get(key)==0){
                 redisTemplate.put(key,1);
                 System.out.println(redisTemplate.get(key)+"========");

@@ -1,7 +1,7 @@
 package com.lijia.test;
 
 import com.lijia.App;
-import com.lijia.service.UserService;
+import com.lijia.service.UserService1;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 @SpringBootTest(classes = App.class)
 public class Test {
     @Autowired
-    private UserService userService;
+    private UserService1 userService;
 
     @org.junit.Test
     public void getUser(){
