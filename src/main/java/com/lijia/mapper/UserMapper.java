@@ -19,4 +19,7 @@ public interface UserMapper {
 
     @Select("select logLevel from logs where logClass='123'")
     String getOthers();
+
+    @Select("select cron from cron where id =1")
+    String findCron();
 }
